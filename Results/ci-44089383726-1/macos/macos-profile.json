@@ -1,0 +1,24 @@
+{
+  "platform": "macos",
+  "capturedAt": "2026-11-17T13:06:24Z",
+  "captureTiming": "before measurement",
+  "xcode": "Xcode 27.2\nBuild version 27B52",
+  "sdk": {
+    "name": "macosx",
+    "version": "27.2"
+  },
+  "device": {
+    "model": "Apple Virtual Machine 1",
+    "identifier": "VirtualMac2,1",
+    "chip": "Apple M1 (Virtual)",
+    "architecture": "arm64",
+    "memoryBytes": 7516192768,
+    "physicalCores": 3,
+    "logicalCores": 3,
+    "os": {
+      "name": "macOS",
+      "version": "27.0.1",
+      "build": "26A434"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+IOSurfaceClientSetSurfaceNotify failed e00002c7
+Trial 1/5, Baseline: warming up for 2 seconds…
+Trial 1/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 2/5, Baseline: warming up for 2 seconds…
+Trial 2/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 3/5, Baseline: warming up for 2 seconds…
+Trial 3/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 4/5, Baseline: warming up for 2 seconds…
+Trial 4/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 5/5, Baseline: warming up for 2 seconds…
+Trial 5/5, Profiler 50 ms: warming up for 2 seconds…
+THREAD PROFILER BENCHMARK (iPhone Simulator, Release, baseline -> profiler)
+Trials: 5 baseline/profiled pairs; 2 s warm-up + 10 s measurement per arm.
+CPU is process user + system time, all threads. CPU %: 100 = one core.
+Rates use summed CPU/update counts divided by summed measurement time.
+Mean wall time (s)        10.032 -> 10.017 (Δ -0.015)
+Mean CPU time (s)         6.012 -> 6.226 (Δ 0.214)
+Process CPU (%)           59.930 -> 62.157 (Δ 2.226)
+Relative CPU change: 3.715 %
+Paired CPU change: mean 3.768 %, sample SD 5.112 %
+Main updates / s          49.901 -> 47.282 (Δ -2.619)
+Tick gap p95 (ms)         39.091 -> 48.334 (Δ 9.243)
+Tick gap max (ms)         275.822 -> 202.612 (Δ -73.210)
+Samples: 990 total, 198.000 mean/trial, 194-199 range/trial
+Sampling cadence: 50 ms; approximately 1000 samples expected across all trials.
+Thread stacks: 5009, frames: 47575
+Capture failures: 0, stacks at 64-frame limit: 348
+Stack buffers are reused each sample; only pause timings are retained.
+Suspend/capture/resume total: 613.538 ms
+Pause window mean:   619.736 µs (0.620 ms)
+Pause window median: 137.583 µs (0.138 ms)
+Pause window p95:    1861.958 µs (1.862 ms)
+Pause window p99:    9086.333 µs (9.086 ms)
+Pause window max:    56672.417 µs (56.672 ms)
+Suspend calls mean:  230.495 µs (0.230 ms)
+Stack capture mean:  96.448 µs (0.096 ms)
+Resume calls mean:   292.793 µs (0.293 ms)
+Pause window spans the first suspend call through the final resume call.
+Threads are suspended/resumed sequentially, not all for the full window.
+Tick gaps are main-timer callback intervals, not presented-frame times.
+Both arms use the same 60 Hz workload timer.
+Sampler startup/shutdown and printing are outside the measurement window.
+Percentiles pool the actual captured samples, rather than averaging trial percentiles.
+Five ordered pairs reduce noise but do not establish statistical significance.
+
+Trial 1: CPU 63.969 -> 64.558 %, samples 199, capture failures 0
+Trial 2: CPU 54.676 -> 56.295 %, samples 199, capture failures 0
+Trial 3: CPU 60.963 -> 59.918 %, samples 199, capture failures 0
+Trial 4: CPU 59.381 -> 66.387 %, samples 199, capture failures 0
+Trial 5: CPU 60.666 -> 63.624 %, samples 194, capture failures 0
+BENCHMARK_STATUS: PASS
+devplaceholder.UFRQB211.ThreadProfilerBenchmark: 24263

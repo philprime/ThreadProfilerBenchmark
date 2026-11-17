@@ -1,2 +1,2 @@
 # Keep captured evidence byte-for-byte, including its original line endings.
-Results/*.log -text
+Results/**/*.log -text

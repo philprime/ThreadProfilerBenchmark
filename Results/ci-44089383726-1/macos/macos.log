@@ -1,0 +1,50 @@
+Trial 1/5, Baseline: warming up for 2 seconds…
+Trial 1/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 2/5, Baseline: warming up for 2 seconds…
+Trial 2/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 3/5, Baseline: warming up for 2 seconds…
+Trial 3/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 4/5, Baseline: warming up for 2 seconds…
+Trial 4/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 5/5, Baseline: warming up for 2 seconds…
+Trial 5/5, Profiler 50 ms: warming up for 2 seconds…
+THREAD PROFILER BENCHMARK (macOS, Release, baseline -> profiler)
+Trials: 5 baseline/profiled pairs; 2 s warm-up + 10 s measurement per arm.
+CPU is process user + system time, all threads. CPU %: 100 = one core.
+Rates use summed CPU/update counts divided by summed measurement time.
+Mean wall time (s)        10.025 -> 10.047 (Δ 0.022)
+Mean CPU time (s)         3.148 -> 3.179 (Δ 0.031)
+Process CPU (%)           31.398 -> 31.642 (Δ 0.244)
+Relative CPU change: 0.778 %
+Paired CPU change: mean 1.838 %, sample SD 21.452 %
+Main updates / s          25.916 -> 26.158 (Δ 0.242)
+Tick gap p95 (ms)         80.171 -> 78.035 (Δ -2.136)
+Tick gap max (ms)         115.866 -> 437.481 (Δ 321.615)
+Samples: 715 total, 143.000 mean/trial, 129-148 range/trial
+Sampling cadence: 50 ms; approximately 1000 samples expected across all trials.
+Thread stacks: 4290, frames: 35350
+Capture failures: 0, stacks at 64-frame limit: 141
+Stack buffers are reused each sample; only pause timings are retained.
+Suspend/capture/resume total: 87.878 ms
+Pause window mean:   122.907 µs (0.123 ms)
+Pause window median: 84.708 µs (0.085 ms)
+Pause window p95:    279.750 µs (0.280 ms)
+Pause window p99:    669.458 µs (0.669 ms)
+Pause window max:    3581.750 µs (3.582 ms)
+Suspend calls mean:  32.225 µs (0.032 ms)
+Stack capture mean:  83.425 µs (0.083 ms)
+Resume calls mean:   7.257 µs (0.007 ms)
+Pause window spans the first suspend call through the final resume call.
+Threads are suspended/resumed sequentially, not all for the full window.
+Tick gaps are main-timer callback intervals, not presented-frame times.
+Both arms use the same 60 Hz workload timer.
+Sampler startup/shutdown and printing are outside the measurement window.
+Percentiles pool the actual captured samples, rather than averaging trial percentiles.
+Five ordered pairs reduce noise but do not establish statistical significance.
+
+Trial 1: CPU 31.729 -> 30.430 %, samples 129, capture failures 0
+Trial 2: CPU 35.053 -> 31.055 %, samples 145, capture failures 0
+Trial 3: CPU 25.809 -> 24.292 %, samples 147, capture failures 0
+Trial 4: CPU 28.463 -> 39.811 %, samples 148, capture failures 0
+Trial 5: CPU 35.966 -> 32.619 %, samples 146, capture failures 0
+BENCHMARK_STATUS: PASS

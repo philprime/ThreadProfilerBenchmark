@@ -6,6 +6,10 @@ Each platform runs five baseline/profiled pairs of the same animation, drawing, 
 
 The native sampler suspends all other enumerated threads, captures up to 64 frame-pointer-based stack addresses per thread, and resumes them. One preallocated capture buffer is reused across samples. Only pause timings are retained, with no stack export or symbolication. The suspension window avoids heap allocation and Swift/Objective-C calls.
 
+<img src="Results/benchmark-ui.jpg" alt="The benchmark's animated shapes and scrolling catalog running on an iPhone" width="360">
+
+The app during measurement. Numeric results below come from the saved reports.
+
 ## Run
 
 Use Xcode 27.2 and install the command-line dependencies:
@@ -44,7 +48,7 @@ Results, build logs, and device profiles are saved under `Results/`.
 
 ## Results
 
-### Recorded overview
+### Local results
 
 CPU is percent of one core. Change is relative to baseline. Pause values are microseconds.
 
@@ -66,7 +70,24 @@ Build evidence: [macOS](Results/macos-build.log), [Simulator](Results/simulator-
 
 These profiles were collected after measurement, with saved device metadata. They do not establish the power or thermal state during the run. Future runs capture profiles before measurement. Unique identifiers are excluded from profiles; raw logs are preserved unchanged.
 
+### Hosted CI results
+
+[Run 44089383726](https://github.com/philprime/ThreadProfilerBenchmark/actions/runs/44089383726) passed on commit `9ca86b4`. Both jobs ran five pairs on separate M1 virtual machines with 3 cores and 7 GB RAM, using macOS 27.0.1 (`26A434`) and Xcode 27.2 (`27B52`). Profiles were captured before measurement.
+
+| Platform                                                             | Samples | Baseline CPU | Profiled CPU | Change | Median pause | p95 pause | Maximum pause |
+| -------------------------------------------------------------------- | ------: | -----------: | -----------: | -----: | -----------: | --------: | ------------: |
+| [macOS](Results/ci-44089383726-1/macos/macos.log)                    |     715 |      31.398% |      31.642% | +0.78% |       84.708 |   279.750 |     3,581.750 |
+| [iPhone Simulator](Results/ci-44089383726-1/simulator/simulator.log) |     990 |      59.930% |      62.157% | +3.72% |      137.583 | 1,861.958 |    56,672.417 |
+
+Both jobs had zero capture failures. Some sampling deadlines were skipped, particularly on macOS, so these counts are below the approximately 1,000 expected. The large variation on these VMs means these numbers do not establish a regression. CPU and pause measurements are not directly comparable across different hosts.
+
+- macOS: [profile](Results/ci-44089383726-1/macos/macos-profile.json), [build log](Results/ci-44089383726-1/macos/macos-build.log), [workflow log](Results/ci-44089383726-1/macos/workflow.log).
+- Simulator: [profile](Results/ci-44089383726-1/simulator/simulator-profile.json), [build log](Results/ci-44089383726-1/simulator/simulator-build.log), [workflow log](Results/ci-44089383726-1/simulator/workflow.log).
+- [Run metadata](Results/ci-44089383726-1/run.json) records the source SHA, attempt, timestamps, and conclusion. Runner environment files are included beside each report.
+
 ### Interpretation
+
+Table values are transcribed from the linked reports, with CPU changes rounded to two decimals. Arithmetic checks use the reports' rounded values, so small rounding differences are expected. The saved reports do not contain individual pause samples, so their percentiles cannot be independently reconstructed. The implementation uses nearest-rank percentiles over pooled samples.
 
 Each report aggregates the five pairs. CPU usage and update throughput use total work divided by total measurement time. Timer-gap and pause percentiles use all individual observations, rather than averages of per-trial percentiles. Reports include each trial's CPU usage and sample count, plus the mean and sample standard deviation of the paired CPU changes. Both arms use the same workload timer.
 
