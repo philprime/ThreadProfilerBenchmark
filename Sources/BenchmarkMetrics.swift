@@ -6,14 +6,45 @@ struct BenchmarkResult {
     let cpuSeconds: Double
     let tickGaps: [Double]
     var profiler: TPProfilerStats
+    var pauseDurations: [Double] = []
 
     var cpuPercent: Double { cpuSeconds / wallSeconds * 100 }
     var updatesPerSecond: Double { Double(tickGaps.count) / wallSeconds }
 
     func tickGapPercentile(_ fraction: Double) -> Double {
-        guard !tickGaps.isEmpty else { return 0 }
-        let sorted = tickGaps.sorted()
-        return sorted[max(0, Int(ceil(Double(sorted.count) * fraction)) - 1)] * 1_000
+        Self.percentile(tickGaps, fraction) * 1_000
+    }
+
+    func pausePercentile(_ fraction: Double) -> Double {
+        Self.percentile(pauseDurations, fraction)
+    }
+
+    static func aggregate(_ runs: [Self]) -> Self {
+        var stats = TPProfilerStats()
+        for run in runs {
+            stats.samples += run.profiler.samples
+            stats.threads += run.profiler.threads
+            stats.frames += run.profiler.frames
+            stats.failures += run.profiler.failures
+            stats.truncatedStacks += run.profiler.truncatedStacks
+            stats.suspensionSeconds += run.profiler.suspensionSeconds
+            stats.maxSuspensionSeconds = max(stats.maxSuspensionSeconds, run.profiler.maxSuspensionSeconds)
+            stats.suspendCallsSeconds += run.profiler.suspendCallsSeconds
+            stats.stackCaptureSeconds += run.profiler.stackCaptureSeconds
+            stats.resumeCallsSeconds += run.profiler.resumeCallsSeconds
+        }
+        return Self(
+            wallSeconds: runs.reduce(0) { $0 + $1.wallSeconds },
+            cpuSeconds: runs.reduce(0) { $0 + $1.cpuSeconds },
+            tickGaps: runs.flatMap(\.tickGaps), profiler: stats,
+            pauseDurations: runs.flatMap(\.pauseDurations)
+        )
+    }
+
+    private static func percentile(_ values: [Double], _ fraction: Double) -> Double {
+        guard !values.isEmpty else { return 0 }
+        let sorted = values.sorted()
+        return sorted[max(0, Int(ceil(Double(sorted.count) * fraction)) - 1)]
     }
 }
 

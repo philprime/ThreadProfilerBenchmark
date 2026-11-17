@@ -1,0 +1,53 @@
+Launched application with devplaceholder.UFRQB211.ThreadProfilerBenchmark bundle identifier.
+Waiting for the application to terminate…
+Trial 1/5, Baseline: warming up for 2 seconds…
+Trial 1/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 2/5, Baseline: warming up for 2 seconds…
+Trial 2/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 3/5, Baseline: warming up for 2 seconds…
+Trial 3/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 4/5, Baseline: warming up for 2 seconds…
+Trial 4/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 5/5, Baseline: warming up for 2 seconds…
+Trial 5/5, Profiler 50 ms: warming up for 2 seconds…
+THREAD PROFILER BENCHMARK (iPhone Physical Device, Release, baseline -> profiler)
+Trials: 5 baseline/profiled pairs; 2 s warm-up + 10 s measurement per arm.
+CPU is process user + system time, all threads. CPU %: 100 = one core.
+Rates use summed CPU/update counts divided by summed measurement time.
+Mean wall time (s)        10.046 -> 10.043 (Δ -0.003)
+Mean CPU time (s)         3.599 -> 3.595 (Δ -0.003)
+Process CPU (%)           35.822 -> 35.800 (Δ -0.022)
+Relative CPU change: -0.061 %
+Paired CPU change: mean -0.065 %, sample SD 0.568 %
+Main updates / s          58.612 -> 58.889 (Δ 0.277)
+Tick gap p95 (ms)         21.348 -> 21.329 (Δ -0.019)
+Tick gap max (ms)         50.246 -> 51.561 (Δ 1.314)
+Samples: 1000 total, 200.000 mean/trial, 200-200 range/trial
+Sampling cadence: 50 ms; approximately 1000 samples expected across all trials.
+Thread stacks: 6001, frames: 49485
+Capture failures: 0, stacks at 64-frame limit: 156
+Stack buffers are reused each sample; only pause timings are retained.
+Suspend/capture/resume total: 108.249 ms
+Pause window mean:   108.249 µs (0.108 ms)
+Pause window median: 91.083 µs (0.091 ms)
+Pause window p95:    242.625 µs (0.243 ms)
+Pause window p99:    327.417 µs (0.327 ms)
+Pause window max:    421.125 µs (0.421 ms)
+Suspend calls mean:  21.328 µs (0.021 ms)
+Stack capture mean:  79.748 µs (0.080 ms)
+Resume calls mean:   7.172 µs (0.007 ms)
+Pause window spans the first suspend call through the final resume call.
+Threads are suspended/resumed sequentially, not all for the full window.
+Tick gaps are main-timer callback intervals, not presented-frame times.
+Both arms use the same 60 Hz workload timer.
+Sampler startup/shutdown and printing are outside the measurement window.
+Percentiles pool the actual captured samples, rather than averaging trial percentiles.
+Five ordered pairs reduce noise but do not establish statistical significance.
+
+Trial 1: CPU 35.959 -> 36.002 %, samples 200, capture failures 0
+Trial 2: CPU 35.773 -> 35.890 %, samples 200, capture failures 0
+Trial 3: CPU 35.840 -> 35.708 %, samples 200, capture failures 0
+Trial 4: CPU 36.087 -> 36.265 %, samples 200, capture failures 0
+Trial 5: CPU 35.456 -> 35.138 %, samples 200, capture failures 0
+BENCHMARK_STATUS: PASS
+The app terminated with the exit code 0.

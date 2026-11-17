@@ -9,10 +9,10 @@ struct ContentView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("Thread profiler benchmark")
+            Text("Benchmark")
                 .font(.largeTitle.bold())
 
-            Text("One animated, scrolling workload. Baseline first, then all-thread stack sampling every 50 ms. Each arm warms up for 2 seconds and measures for 10 seconds.")
+            Text("Five baseline/profiled pairs using the same animated, scrolling workload. Each arm warms up for 2 seconds and measures for 10 seconds. Profiling samples all threads every 50 ms. Allow about two minutes.")
                 .foregroundStyle(.secondary)
 
             BenchmarkScene(session: session)
@@ -22,7 +22,7 @@ struct ContentView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 16))
 
             HStack {
-                Button(benchmarkTask == nil ? "Run A/B benchmark" : "Cancel") {
+                Button(benchmarkTask == nil ? "Run 5-pair benchmark" : "Cancel") {
                     if let benchmarkTask {
                         benchmarkTask.cancel()
                     } else {

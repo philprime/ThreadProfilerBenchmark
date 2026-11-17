@@ -1,0 +1,38 @@
+{
+  "platform": "device",
+  "capturedAt": "2026-11-17T12:54:50Z",
+  "captureTiming": "after measurement; device snapshot from run",
+  "xcode": "Xcode 27.2\nBuild version 27B52",
+  "sdk": {
+    "name": "iphoneos",
+    "version": "27.2"
+  },
+  "device": {
+    "model": "iPhone 14",
+    "identifier": "iPhone14,7",
+    "board": "D27AP",
+    "architecture": "arm64e",
+    "storageBytes": 128000000000,
+    "os": {
+      "name": "iOS",
+      "version": "26.7.3",
+      "build": "23H131"
+    },
+    "developerMode": "enabled",
+    "connection": "wired"
+  },
+  "host": {
+    "model": "MacBook Pro",
+    "identifier": "Mac16,5",
+    "chip": "Apple M4 Max",
+    "architecture": "arm64",
+    "memoryBytes": 38654705664,
+    "physicalCores": 14,
+    "logicalCores": 14,
+    "os": {
+      "name": "macOS",
+      "version": "27.2.1",
+      "build": "26B131"
+    }
+  }
+}

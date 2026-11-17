@@ -1,7 +1,7 @@
 destination := "platform=macOS"
 scheme := "ThreadProfilerBenchmark"
 build_directory := ".build"
-simulator := "booted"
+simulator := "iPhone 18 Pro"
 device := "iPhone Sentry"
 
 build configuration="Release":

@@ -223,29 +223,19 @@ int TPProfilerStart(TPProfiler *profiler)
     return result;
 }
 
-static int compareDurations(const void *left, const void *right)
-{
-    double a = *(const double *)left, b = *(const double *)right;
-    return (a > b) - (a < b);
-}
-
 TPProfilerStats TPProfilerStop(TPProfiler *profiler)
 {
     if (profiler->started) {
         atomic_store(&profiler->running, false);
         pthread_join(profiler->worker, NULL);
         profiler->started = false;
-        // Summarize only after sampling stops, outside both the pause and measurement windows.
-        size_t count = (size_t)profiler->stats.samples;
-        if (count > 0) {
-            double *durations = profiler->pauseDurations;
-            qsort(durations, count, sizeof(double), compareDurations);
-            profiler->stats.medianSuspensionSeconds = durations[(count * 50 + 99) / 100 - 1];
-            profiler->stats.p95SuspensionSeconds = durations[(count * 95 + 99) / 100 - 1];
-            profiler->stats.p99SuspensionSeconds = durations[(count * 99 + 99) / 100 - 1];
-        }
     }
     return profiler->stats;
+}
+
+const double *TPProfilerPauseDurations(const TPProfiler *profiler)
+{
+    return profiler->pauseDurations;
 }
 
 void TPProfilerDestroy(TPProfiler *profiler)

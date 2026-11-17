@@ -6,6 +6,8 @@ scheme=$2
 build_root=$3
 simulator=$4
 device=$5
+results="${RESULTS_DIR:-Results}"
+export RESULTS_DIR="$results"
 
 case "$target" in
     all)
@@ -26,34 +28,39 @@ case "$target" in
         ;;
 esac
 
-results="$build_root/results"
 build_directory="$build_root/$target"
-mkdir -p "$results"
+metadata="$build_root/metadata"
+mkdir -p "$results" "$metadata"
 
 case "$target" in
     macos)
+        profile_device=""
         destination="platform=macOS"
         app="$build_directory/Build/Products/Release/$scheme.app"
         echo "=== macOS ==="
         ;;
     simulator)
-        xcrun simctl list devices available --json > "$results/simulators.json"
-        simulator=$(jq -er --arg selected "$simulator" '
-            [.devices[][]
+        xcrun simctl list devices available --json > "$metadata/simulators.json"
+        xcrun simctl list runtimes --json > "$metadata/runtimes.json"
+        sdk_version=$(xcrun --sdk iphonesimulator --show-sdk-version)
+        runtime="com.apple.CoreSimulator.SimRuntime.iOS-${sdk_version//./-}"
+        simulator=$(jq -er --arg selected "$simulator" --arg runtime "$runtime" '
+            [.devices | to_entries[] | .key as $device_runtime | .value[]
                 | select(.deviceTypeIdentifier | contains(".iPhone-"))
                 | select(if $selected == "booted" then .state == "Booted"
-                    else .udid == $selected end)]
+                    else .udid == $selected
+                        or (.name == $selected and $device_runtime == $runtime) end)]
             | if length == 1 then .[0].udid
-                else error("Select one iPhone Simulator using just --set simulator <UDID> benchmark simulator, or boot one iPhone.") end
-        ' "$results/simulators.json")
+                else error("Expected one matching iPhone Simulator for the selected Xcode. Install its iOS runtime or select a simulator UDID.") end
+        ' "$metadata/simulators.json")
+        profile_device="$simulator"
         destination="platform=iOS Simulator,id=$simulator"
         app="$build_directory/Build/Products/Release-iphonesimulator/$scheme.app"
         echo "=== iPhone Simulator ($simulator) ==="
         xcrun simctl bootstatus "$simulator" -b
-        open -a Simulator --args -CurrentDeviceUDID "$simulator"
         ;;
     device)
-        xcrun devicectl list devices --json-output "$results/devices.json" --quiet
+        xcrun devicectl list devices --json-output "$metadata/devices.json" --quiet
         device=$(jq -er --arg selected "$device" '
             [.result.devices[]
                 | select(.hardwareProperties.reality == "physical")
@@ -62,12 +69,15 @@ case "$target" in
                     or .identifier == $selected or .hardwareProperties.udid == $selected)]
             | if length == 1 then .[0].hardwareProperties.udid
                 else error("Select one connected iPhone using just --set device <name-or-UDID> benchmark device.") end
-        ' "$results/devices.json")
+        ' "$metadata/devices.json")
+        profile_device="$device"
         destination="platform=iOS,id=$device"
         app="$build_directory/Build/Products/Release-iphoneos/$scheme.app"
         echo "=== iPhone Physical Device ($device) ==="
         ;;
 esac
+
+bash scripts/device-profile.sh "$target" "$profile_device" "$metadata" > "$results/$target-profile.json"
 
 build_log="$results/$target-build.log"
 if just --set scheme "$scheme" --set destination "$destination" --set build_directory "$build_directory" build Release > "$build_log" 2>&1; then
@@ -92,7 +102,7 @@ case "$target" in
     device)
         bundle_id=$(plutil -extract CFBundleIdentifier raw -o - "$app/Info.plist")
         xcrun devicectl device install app --device "$device" "$app"
-        xcrun devicectl device process launch --device "$device" --console --timeout 120 "$bundle_id" -- --benchmark 2>&1 | tee "$log"
+        xcrun devicectl device process launch --device "$device" --console --timeout 300 "$bundle_id" -- --benchmark 2>&1 | tee "$log"
         ;;
 esac
 

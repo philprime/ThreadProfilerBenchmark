@@ -1,0 +1,34 @@
+{
+  "platform": "simulator",
+  "capturedAt": "2026-11-17T12:54:50Z",
+  "captureTiming": "after measurement; device snapshot from run",
+  "xcode": "Xcode 27.2\nBuild version 27B52",
+  "sdk": {
+    "name": "iphonesimulator",
+    "version": "27.2"
+  },
+  "device": {
+    "model": "iPhone 18 Pro",
+    "type": "com.apple.CoreSimulator.SimDeviceType.iPhone-18-Pro",
+    "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-27-2",
+    "os": {
+      "name": "iOS 27.2",
+      "version": "27.2",
+      "build": "24B8117"
+    }
+  },
+  "host": {
+    "model": "MacBook Pro",
+    "identifier": "Mac16,5",
+    "chip": "Apple M4 Max",
+    "architecture": "arm64",
+    "memoryBytes": 38654705664,
+    "physicalCores": 14,
+    "logicalCores": 14,
+    "os": {
+      "name": "macOS",
+      "version": "27.2.1",
+      "build": "26B131"
+    }
+  }
+}

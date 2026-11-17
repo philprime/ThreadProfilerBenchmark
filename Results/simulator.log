@@ -1,0 +1,53 @@
+IOSurfaceClientSetSurfaceNotify failed e00002c7
+objc[10102]: Class UIAccessibilityLoaderWebShared is implemented in both /private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.2.8117.0.3XHXCD/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.2.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x109738310) and /private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.2.8117.0.3XHXCD/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.2.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x109794398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+Trial 1/5, Baseline: warming up for 2 seconds…
+Trial 1/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 2/5, Baseline: warming up for 2 seconds…
+Trial 2/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 3/5, Baseline: warming up for 2 seconds…
+Trial 3/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 4/5, Baseline: warming up for 2 seconds…
+Trial 4/5, Profiler 50 ms: warming up for 2 seconds…
+Trial 5/5, Baseline: warming up for 2 seconds…
+Trial 5/5, Profiler 50 ms: warming up for 2 seconds…
+THREAD PROFILER BENCHMARK (iPhone Simulator, Release, baseline -> profiler)
+Trials: 5 baseline/profiled pairs; 2 s warm-up + 10 s measurement per arm.
+CPU is process user + system time, all threads. CPU %: 100 = one core.
+Rates use summed CPU/update counts divided by summed measurement time.
+Mean wall time (s)        10.005 -> 10.007 (Δ 0.002)
+Mean CPU time (s)         2.805 -> 2.611 (Δ -0.194)
+Process CPU (%)           28.038 -> 26.092 (Δ -1.946)
+Relative CPU change: -6.942 %
+Paired CPU change: mean -4.846 %, sample SD 15.036 %
+Main updates / s          59.811 -> 60.039 (Δ 0.229)
+Tick gap p95 (ms)         19.044 -> 19.604 (Δ 0.560)
+Tick gap max (ms)         155.473 -> 27.879 (Δ -127.594)
+Samples: 999 total, 199.800 mean/trial, 199-200 range/trial
+Sampling cadence: 50 ms; approximately 1000 samples expected across all trials.
+Thread stacks: 4984, frames: 24500
+Capture failures: 0, stacks at 64-frame limit: 20
+Stack buffers are reused each sample; only pause timings are retained.
+Suspend/capture/resume total: 38.385 ms
+Pause window mean:   38.424 µs (0.038 ms)
+Pause window median: 29.792 µs (0.030 ms)
+Pause window p95:    66.750 µs (0.067 ms)
+Pause window p99:    90.125 µs (0.090 ms)
+Pause window max:    1951.625 µs (1.952 ms)
+Suspend calls mean:  8.876 µs (0.009 ms)
+Stack capture mean:  26.550 µs (0.027 ms)
+Resume calls mean:   2.998 µs (0.003 ms)
+Pause window spans the first suspend call through the final resume call.
+Threads are suspended/resumed sequentially, not all for the full window.
+Tick gaps are main-timer callback intervals, not presented-frame times.
+Both arms use the same 60 Hz workload timer.
+Sampler startup/shutdown and printing are outside the measurement window.
+Percentiles pool the actual captured samples, rather than averaging trial percentiles.
+Five ordered pairs reduce noise but do not establish statistical significance.
+
+Trial 1: CPU 36.664 -> 25.915 %, samples 200, capture failures 0
+Trial 2: CPU 24.370 -> 25.357 %, samples 200, capture failures 0
+Trial 3: CPU 25.408 -> 27.321 %, samples 199, capture failures 0
+Trial 4: CPU 28.027 -> 25.481 %, samples 200, capture failures 0
+Trial 5: CPU 25.719 -> 26.385 %, samples 200, capture failures 0
+BENCHMARK_STATUS: PASS
+devplaceholder.UFRQB211.ThreadProfilerBenchmark: 10102
